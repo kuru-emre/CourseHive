@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+// Author: Dhruvil Trivedi
+// This the App.js page where the login and registration stays
+
+import React, { useState } from 'react';
 import './App.css';
+import { Login } from './login';
+import { Register } from './register';
 
 function App() {
+  const [currentForm, setCurrentFrom] = useState('login');
+  
+  const toggleForm = (formName) => {
+    setCurrentFrom(formName);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        currentForm === 'login'? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm}/>
+      }
     </div>
   );
 }
