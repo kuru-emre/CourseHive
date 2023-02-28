@@ -1,0 +1,1 @@
+export { CoursePageView } from './CoursePageView'
