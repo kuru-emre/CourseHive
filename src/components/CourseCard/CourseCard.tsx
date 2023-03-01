@@ -1,12 +1,8 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-
-import defaultBanner1 from '../../assets/images/defaultBanner1.png'
 import { setCode, setTheme, setTitle, useAppDispatch } from '../../redux'
 import { CourseType } from '../../types'
-import { ROUTES } from '../../utils'
 import { StyledCourseCard } from './'
 
 type Props = {

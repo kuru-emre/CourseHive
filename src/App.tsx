@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
-
 import { Navbar } from './components/Navbar'
 import { persistor, store } from './redux'
 import { Global, ROUTES, theme } from './utils'
