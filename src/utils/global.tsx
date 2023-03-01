@@ -73,4 +73,9 @@ export const Global = createGlobalStyle`
   button:hover, a:hover {
     cursor: pointer;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `

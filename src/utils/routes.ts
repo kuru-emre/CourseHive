@@ -2,7 +2,8 @@ const App = {
   login: '/login',
   register: '/register',
   home: '/',
-  settings: '/settings'
+  settings: '/settings',
+  course: '/courses/:id',
 }
 
 export const ROUTES = {

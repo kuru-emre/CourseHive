@@ -1,12 +1,13 @@
-import { FC } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { Global, ROUTES, theme } from "./utils";
-import { CoursePage, Login, Register, Settings } from "./views";
-import { persistor, store } from "./redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-import { Navbar } from "./components/Navbar";
+import { FC } from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { PersistGate } from 'redux-persist/integration/react'
+import { ThemeProvider } from 'styled-components'
+
+import { Navbar } from './components/Navbar'
+import { persistor, store } from './redux'
+import { Global, ROUTES, theme } from './utils'
+import { CoursePage, HomeView, Login, Register, Settings } from './views'
 
 const App: FC = () => {
   return (
@@ -17,7 +18,8 @@ const App: FC = () => {
           <Navbar />
           <Router>
             <Routes>
-              <Route path={ROUTES.App.home} element={<CoursePage />} />
+              <Route path={ROUTES.App.home} element={<HomeView />} />
+              <Route path={ROUTES.App.course} element={<CoursePage />} />
               <Route path={ROUTES.App.login} element={<Login />} />
               <Route path={ROUTES.App.register} element={<Register />} />
               <Route path={ROUTES.App.settings} element={<Settings />} />
@@ -26,7 +28,7 @@ const App: FC = () => {
         </ThemeProvider>
       </PersistGate>
     </Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

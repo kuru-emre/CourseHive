@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PostType } from '../../types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { PostType } from '../../types';
 
 type InitialState = {
   title: string
@@ -26,7 +27,7 @@ export const courseSlice = createSlice({
       state.theme = action.payload
     },
     setCode: (state, action: PayloadAction<InitialState['code']>) => {
-      state.theme = action.payload
+      state.code = action.payload
     },
     setPosts: (state, action: PayloadAction<InitialState['posts']>) => {
       state.posts = action.payload
