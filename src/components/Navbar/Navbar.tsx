@@ -14,10 +14,10 @@ const Navbar: FC = () => {
     <StyledNavbar color={theme}>
       <div className="container">
         <div className="links">
-          <Link to={'/'}>Homepage</Link>
-          <Link to={'/courses'}>Courses</Link>
-          <Link to={'/settings'}>Settings</Link>
-          <Link to={'/profile'}>Profile</Link>
+          <Link to=''>Homepage</Link>
+          <Link to='courses'>Courses</Link>
+          <Link to='settings'>Settings</Link>
+          <Link to='profile'>Profile</Link>
         </div>
         <div className="right-section">
           <button className="join-course-btn" onClick={() => setIsModalOpen(true)}>
@@ -25,7 +25,7 @@ const Navbar: FC = () => {
             <PlusIcon />
           </button>
           <div className="links">
-            <Link to={'/login'}>Login</Link>
+            <Link to='login'>Login</Link>
           </div>
           <Avatar />
         </div>

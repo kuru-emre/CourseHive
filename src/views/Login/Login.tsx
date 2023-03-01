@@ -58,7 +58,7 @@ const Login: FC = () => {
         </form>
         <button className="link-btn">Forget Password?</button>
         <button className="link-btn">
-          <Link to={'/register'}>Don't have an account? Register here.</Link>
+          <Link to='register'>Don't have an account? Register here.</Link>
         </button>
       </div>
     </StyledLogin>
