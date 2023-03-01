@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { validator } from "../../utils/validator";
 import { StyledLogin } from ".";
+import { Link } from "react-router-dom";
 
 const Login: FC = () => {
   const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ const Login: FC = () => {
         </form>
         <button className="link-btn">Forget Password?</button>
         <button className="link-btn">
-          <a href="/register">Don't have an account? Register here.</a>
+          <Link to={'/register'}>Don't have an account? Register here.</Link>
         </button>
       </div>
     </StyledLogin>

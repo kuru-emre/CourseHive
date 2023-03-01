@@ -15,8 +15,8 @@ const App: FC = () => {
       <PersistGate persistor={persistor}>
         <ThemeProvider theme={theme}>
           <Global />
-          <Navbar />
           <Router>
+            <Navbar />
             <Routes>
               <Route path={ROUTES.App.home} element={<HomeView />} />
               <Route path={ROUTES.App.course} element={<CoursePage />} />

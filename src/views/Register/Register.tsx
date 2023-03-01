@@ -4,6 +4,7 @@
 import { FC, useEffect, useState } from "react";
 import { validator } from "../../utils/validator";
 import { StyledRegister } from ".";
+import { Link } from "react-router-dom";
 
 export const Register: FC = () => {
   const [email, setEmail] = useState("");
@@ -101,7 +102,7 @@ export const Register: FC = () => {
           <button type="submit">Register</button>
         </form>
         <button className="link-btn">
-          <a href="/login">Already have an account? Login here.</a>
+          <Link to={'/login'}>Already have an account? Login here.</Link>
         </button>
       </div>
     </StyledRegister>
