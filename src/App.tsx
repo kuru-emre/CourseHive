@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Global, ROUTES, theme } from "./utils";
-import { CoursePage, Login, Register, Settings } from "./views";
+import { CoursePage, Login, Register, Settings, Profile } from "./views";
 import { persistor, store } from "./redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
@@ -21,6 +21,7 @@ const App: FC = () => {
               <Route path={ROUTES.App.login} element={<Login />} />
               <Route path={ROUTES.App.register} element={<Register />} />
               <Route path={ROUTES.App.settings} element={<Settings />} />
+              <Route path={ROUTES.App.profile} element={<Profile />} />
             </Routes>
           </Router>
         </ThemeProvider>
