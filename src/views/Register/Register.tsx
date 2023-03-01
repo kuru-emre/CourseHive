@@ -101,9 +101,10 @@ export const Register: FC = () => {
 
           <button type="submit">Register</button>
         </form>
-        <button className="link-btn">
-          <Link to='login'>Already have an account? Login here.</Link>
-        </button>
+        <Link to='login'>
+          <button className="link-btn">Already have an account? Login here.
+          </button>
+        </Link>
       </div>
     </StyledRegister>
   );
