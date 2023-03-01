@@ -1,6 +1,6 @@
-export { Login } from "./Login";
-export { Register } from "./Register";
-export { CoursePage } from "./CoursePage";
-export { Settings } from "./Settings";
+export { Login } from './Login'
+export { Register } from './Register'
+export { CoursePage } from './CoursePage'
+export { Settings } from './Settings'
 export { HomeView } from './HomeView'
-
+export { Profile } from './Profile'

@@ -19,6 +19,7 @@ const Navbar: FC = () => {
           <a href="/">Homepage</a>
           <a href="/courses">Courses</a>
           <a href="/settings">Settings</a>
+          <a href="/profile">Profile</a>
         </div>
 
         <div className="right-section">

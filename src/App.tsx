@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import { Navbar } from './components/Navbar'
 import { persistor, store } from './redux'
 import { Global, ROUTES, theme } from './utils'
-import { CoursePage, HomeView, Login, Register, Settings } from './views'
+import { CoursePage, HomeView, Login, Profile, Register, Settings } from './views'
 
 const App: FC = () => {
   return (
@@ -23,6 +23,7 @@ const App: FC = () => {
               <Route path={ROUTES.App.login} element={<Login />} />
               <Route path={ROUTES.App.register} element={<Register />} />
               <Route path={ROUTES.App.settings} element={<Settings />} />
+              <Route path={ROUTES.App.profile} element={<Profile />} />
             </Routes>
           </Router>
         </ThemeProvider>
