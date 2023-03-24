@@ -4,11 +4,10 @@ import { useAppSelector } from '../../redux'
 import { StyledCoursePage } from '.'
 
 const CoursePage: FC = () => {
-  const { title, code, theme, posts } = useAppSelector((state) => state.course)
+  const { title, code, theme, posts } = useAppSelector(state => state.course)
 
   return (
     <StyledCoursePage color={theme}>
-      <Header/>
       <div className="width-controller">
         <div className="course-splash">
           <div className="course-splash-heading">
@@ -17,9 +16,9 @@ const CoursePage: FC = () => {
           </div>
           <button className="course-splash-change-theme-btn">Change theme</button>
         </div>
-        <ShareInput/>
+        <ShareInput />
         <div className="post-list">
-          {posts.map((post) => {
+          {posts.map(post => {
             return <PostListItem post={post} key={post._id} />
           })}
         </div>

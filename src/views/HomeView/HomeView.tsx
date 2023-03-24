@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
 
-import { CourseCard, Header } from '../../components';
-import { StyledHomeView } from './';
+import { CourseCard, Header } from '../../components'
+import { WidthController } from '../../components/system'
+import { StyledHomeView } from './'
 
 const COURSES = [
   {
@@ -10,7 +11,7 @@ const COURSES = [
     code: 'ghd72f',
     studentCount: 25,
     details: ['Due today - Assignment 2'],
-    theme: '#9a3412'
+    theme: '#7c3aed'
   },
   {
     id: '1572387572',
@@ -18,7 +19,7 @@ const COURSES = [
     code: 'fhaj2a',
     studentCount: 122,
     details: ['Due today - Assignment 2'],
-    theme: '#065f46'
+    theme: '#4f46e5'
   },
   {
     id: '3572387572',
@@ -26,7 +27,7 @@ const COURSES = [
     code: 'lk87afa',
     studentCount: 38,
     details: ['Due today - Assignment 2'],
-    theme: '#1e40af'
+    theme: '#2563eb'
   },
   {
     id: '6572387572',
@@ -34,18 +35,28 @@ const COURSES = [
     code: 'poiw821',
     studentCount: 221,
     details: ['Due today - Assignment 2'],
-    theme: '#5b21b6'
-  },
+    theme: '#9333ea'
+  }
 ]
 
 const HomeView: FC = () => {
   return (
     <StyledHomeView>
-      <main>
-        {COURSES.map((course) => (
-          <CourseCard key={course.id} course={course} />
-        ))}
-      </main>
+      <div className="splash-container">
+        <WidthController>
+          <div className="splash">
+            <h1>Welcome back, Jamel</h1>
+            <p>What will you learn today?</p>
+          </div>
+        </WidthController>
+      </div>
+      <WidthController>
+        <div className="course-list">
+          {COURSES.map(course => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+        </div>
+      </WidthController>
     </StyledHomeView>
   )
 }

@@ -9,7 +9,7 @@ export const Global = createGlobalStyle`
 
   body {
     background-color: ${({ theme }) => theme.color.background};
-    color: ${({ theme }) => theme.color.foreground};
+    color: ${({ theme }) => theme.color.gray[900]};
     font-size: 1rem;
     margin: 0;
     font-family: ${({ theme }) => theme.typeface.sans};

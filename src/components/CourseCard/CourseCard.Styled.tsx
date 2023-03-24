@@ -1,14 +1,17 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 type StyledProps = {
   color: string
 }
 
 const StyledCourseCard = styled.div<StyledProps>`
-  background-color: #f9fafb;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
+  background-color: ${({ theme }) => theme.color.background};
+  overflow: hidden;
+  border-radius: 12px;
   min-height: 200px;
+  position: relative;
+  transition: 0.2s;
+  box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1), 0 2px 6px rgb(0, 0, 0, 0.1);
 
   a {
     display: block;
@@ -16,27 +19,24 @@ const StyledCourseCard = styled.div<StyledProps>`
   }
 
   .course-details-wrapper {
-    border-radius: 6px 6px 0 0;
-    background-color: ${({ color }) => color}20;
-    border-bottom: 1px solid #d1d5db;
+    background-color: ${({ color }) => color};
+    color: ${({ theme }) => theme.color.background};
     height: 80px;
     position: relative;
 
     .course-details {
       display: grid;
       gap: 4px;
-      padding: 12px;
+      padding: 20px;
 
       .course-name {
         font-size: 18px;
-        font-weight: 700;
-        color: ${({ color }) => color};
+        font-weight: 600;
       }
 
       .course-count {
         font-size: 14px;
-        color: ${({ color }) => color}c4;
-
+        color: ${({ theme }) => theme.color.background}90;
       }
     }
 
@@ -44,11 +44,11 @@ const StyledCourseCard = styled.div<StyledProps>`
       width: 30px;
       height: 30px;
       border-radius: 4px;
-      color: ${({ theme }) => theme.color.gray[500]};
+      color: ${({ theme }) => theme.color.background}80;
       position: absolute;
       top: 12px;
       right: 12px;
-      background: rgba(255, 255, 255, 0.15);
+      background: transparent;
 
       svg {
         height: 22px;
@@ -58,13 +58,17 @@ const StyledCourseCard = styled.div<StyledProps>`
 
   .extra-details {
     margin: 0;
-    padding: 12px;
+    padding: 20px;
 
     li {
       list-style-type: none;
       color: #1f2937;
       font-size: 14px;
     }
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.15), 0 4px 12px rgb(0, 0, 0, 0.15);
   }
 `
 

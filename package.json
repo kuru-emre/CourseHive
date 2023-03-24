@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -20,7 +21,8 @@
     "react-router-dom": "^6.8.2",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
     "@types/body-scroll-lock": "^3.1.0",

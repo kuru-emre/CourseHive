@@ -4,69 +4,84 @@ type StyledProps = {
   color: string
 }
 
-const StyledNavbar = styled.nav<StyledProps>`
-  .container {
+const StyledNavbar = styled.header<StyledProps>`
+  position: sticky;
+  top: 0;
+  background-color: ${({ theme }) => theme.color.background};
+  z-index: ${({ theme }) => theme.elevation.fixed};
+  box-shadow: 0 0 0 1px ${({ theme }) => theme.color.gray[900]}30;
+
+  .header {
+    padding: 12px 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
-    height: 60px;
-    background-color: ${({ color }) => color}20;
 
-    .links {
-      list-style-type: none;
-      margin: 0;
-      padding: 5px;
-    }
-
-    .links a {
-      text-decoration: none;
-      font-size: 17px;
-      font-weight: 400;
-      padding: 10px;
-      margin-right: 20px;
-      border-radius: 4px;
-      background-color: ${({ color }) => color}15;
-      transition: 0.2s;
-
-      &:hover {
-        background-color: ${({ color }) => color}30;
-      }
-    }
-
-    .right-section {
+    .header-group {
       display: flex;
-      align-items: center;
 
-      .join-course-btn {
-        /* background: #4f46e5;
+      .header-logo {
+        color: ${({ theme }) => theme.color.gray[900]};
+
+        svg {
+          height: 32px;
+        }
+      }
+
+      nav {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 20px;
-        padding: 6px;
-        border-radius: 50%; */
+        margin-left: 20px;
 
-        background: #4f46e5;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-        padding: 10px;
-        border-radius: 5px;
-
-        span {
+        a {
+          height: 32px;
+          display: flex;
+          padding: 0 3px;
+          justify-content: center;
+          align-items: center;
           position: relative;
-          top: -1px;
-          margin-right: 6px;
+          font-size: 15px;
+
+          span {
+            border-radius: 4px;
+            padding: 8px;
+            transition: 0.2s;
+            color: ${({ theme }) => theme.color.gray[500]};
+          }
+
+          &:hover {
+            span {
+              background-color: ${({ theme }) => theme.color.gray[100]};
+              color: ${({ theme }) => theme.color.gray[600]};
+            }
+          }
+
+          &.active {
+            span {
+              color: ${({ theme }) => theme.color.gray[900]};
+              background-color: ${({ theme }) => theme.color.gray[200]};
+            }
+          }
+        }
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 16px;
+        border-radius: 4px;
+        font-size: 15px;
+        margin-right: 10px;
+        transition: 0.2s;
+        background-color: ${({ theme }) => theme.color.gray[800]};
+        color: ${({ theme }) => theme.color.background};
+
+        svg {
+          height: 22px;
+          stroke-width: 2px;
+          margin-left: 10px;
         }
 
         &:hover {
-          background-color: #5952e0;
-        }
-
-        svg {
-          height: 20px;
+          background-color: ${({ theme }) => theme.color.gray[700]};
         }
       }
     }
