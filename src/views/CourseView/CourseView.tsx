@@ -1,7 +1,7 @@
 import { createRef, FC, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Cog6ToothIcon, DocumentDuplicateIcon, PencilIcon, SwatchIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { OptionsPopover, PostList, ShareInput, WidthController } from '../../components'
+import { InputModal, OptionsPopover, PostList, ShareInput, WidthController } from '../../components'
 import { useAppSelector } from '../../redux'
 import { copyToClipboard, ROUTES, useCourse } from '../../utils'
 import { StyledCourseView } from '.'
@@ -10,8 +10,9 @@ import { ClipboardDocumentListIcon, UserGroupIcon } from '@heroicons/react/20/so
 const CourseView: FC = () => {
   const optionsBtnRef = createRef<HTMLButtonElement>()
   const { course, posts } = useAppSelector(state => state.course)
-  const { deleteCourse, toggleCourseTheme } = useCourse()
+  const { deleteCourse, toggleCourseTheme, renameCourse } = useCourse()
   const [showOptions, setShowOptions] = useState(false)
+  const [showRenameModal, setShowRenameModal] = useState(false)
 
   if (!course?._id) {
     return <Redirect to={ROUTES.App.home} />
@@ -43,7 +44,7 @@ const CourseView: FC = () => {
               <div className="course-post-input">
                 <ShareInput course={course} />
               </div>
-              <PostList posts={posts} />
+              <PostList posts={posts.filter(post => post.course === course._id)} />
             </div>
             <div className="course-details">
               <div className="course-detail-panel">
@@ -69,7 +70,7 @@ const CourseView: FC = () => {
           {
             icon: <PencilIcon />,
             label: 'Rename course',
-            action: () => {}
+            action: () => setShowRenameModal(true)
           },
           {
             icon: <SwatchIcon />,
@@ -89,6 +90,13 @@ const CourseView: FC = () => {
         buttonRef={optionsBtnRef}
         isOpen={showOptions}
         onClose={() => setShowOptions(false)}
+      />
+      <InputModal
+        confirmButtonText="Rename Course"
+        defaultValue={course.title}
+        isOpen={showRenameModal}
+        onClose={() => setShowRenameModal(false)}
+        onConfirm={value => renameCourse(course._id, value)}
       />
     </>
   )

@@ -6,6 +6,33 @@ export const useCourse = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
 
+  const renameCourse = async (_id: string, title: string) => {
+    try {
+      // First, changes the title in the store.
+      // This conveys a faster speed than reality.
+
+      dispatch(
+        updateCourse({
+          title
+        })
+      )
+
+      dispatch(
+        updateCourses({
+          _id,
+          course: { title }
+        })
+      )
+
+      // Then, query the backend to
+      // update the course document.
+
+      // TODO: QUERY BACKEND
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   const deleteCourse = async (_id: string) => {
     try {
       // First, remove from store.
@@ -59,6 +86,7 @@ export const useCourse = () => {
   }
 
   return {
+    renameCourse,
     deleteCourse,
     toggleCourseTheme
   }

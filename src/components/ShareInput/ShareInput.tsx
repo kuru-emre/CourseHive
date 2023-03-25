@@ -1,10 +1,8 @@
 import TextareaAutosize from 'react-textarea-autosize'
 import { createRef, FC, FormEvent, useState } from 'react'
-import { v4 as uuid } from 'uuid'
-import { DateTime } from 'luxon'
 import { ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { addCoursePost, useAppDispatch } from '../../redux'
 import { CourseType, PostType } from '../../types'
+import { usePost } from '../../utils'
 import { Avatar, OptionsPopover } from '..'
 import { StyledShareInput } from '.'
 
@@ -13,14 +11,14 @@ type Props = {
 }
 
 const ShareInput: FC<Props> = ({ course }) => {
-  const dispatch = useAppDispatch()
   const inputRef = createRef<HTMLTextAreaElement>()
   const optionsBtnRef = createRef<HTMLButtonElement>()
+  const { createPost } = usePost()
   const [value, setValue] = useState('')
-  const [type, setType] = useState('post')
+  const [type, setType] = useState<PostType['type']>('post')
   const [showOptions, setShowOptions] = useState(false)
 
-  const handleSubmit = (e?: FormEvent) => {
+  const handleSubmit = async (e?: FormEvent) => {
     e?.preventDefault()
 
     // If the post is empty, return.
@@ -28,17 +26,9 @@ const ShareInput: FC<Props> = ({ course }) => {
       return
     }
 
-    // Create the post object.
-    const postObject: PostType = {
-      _id: uuid(),
-      content: value,
-      user: '9h0js128j09d0012',
-      sent: DateTime.now().toISO()
-    }
-
-    // Append the post object to the state
-    // and remove focus from the share input.
-    dispatch(addCoursePost(postObject))
+    // Create the post and remove
+    // focus from the share input.
+    await createPost(value, type)
     inputRef?.current?.blur()
 
     // Clear the state.
@@ -58,7 +48,12 @@ const ShareInput: FC<Props> = ({ course }) => {
             placeholder="Say something..."
             lang="en"
             onChange={e => setValue(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                handleSubmit()
+                e.preventDefault()
+              }
+            }}
             ref={inputRef}
           />
           <button
