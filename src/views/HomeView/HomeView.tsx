@@ -1,45 +1,74 @@
-import React, { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { CourseCard, WidthController } from '../../components'
+import { CourseType } from '../../types'
+import { setCourses, useAppDispatch, useAppSelector } from '../../redux'
+import { StyledHomeView } from '.'
 
-import { CourseCard, Header } from '../../components'
-import { WidthController } from '../../components/system'
-import { StyledHomeView } from './'
-
-const COURSES = [
+const COURSES_DUMMY_DATA: CourseType[] = [
   {
-    id: '8572387572',
-    name: 'Computer Science 101',
+    _id: '8572387572',
+    title: 'Computer Science 101',
     code: 'ghd72f',
-    studentCount: 25,
+    students: 25,
     details: ['Due today - Assignment 2'],
     theme: '#7c3aed'
   },
   {
-    id: '1572387572',
-    name: 'Cooking Class',
+    _id: '1572387572',
+    title: 'Cooking Class',
     code: 'fhaj2a',
-    studentCount: 122,
+    students: 122,
     details: ['Due today - Assignment 2'],
     theme: '#4f46e5'
   },
   {
-    id: '3572387572',
-    name: 'Origami Fundamentals',
+    _id: '3572387572',
+    title: 'Origami Fundamentals',
     code: 'lk87afa',
-    studentCount: 38,
+    students: 38,
     details: ['Due today - Assignment 2'],
     theme: '#2563eb'
   },
   {
-    id: '6572387572',
-    name: 'Ancient Rome',
+    _id: '6572387572',
+    title: 'Ancient Rome',
     code: 'poiw821',
-    studentCount: 221,
+    students: 221,
     details: ['Due today - Assignment 2'],
     theme: '#9333ea'
   }
 ]
 
 const HomeView: FC = () => {
+  const dispatch = useAppDispatch()
+  const { courses } = useAppSelector(state => state.courses)
+  const [loading, setLoading] = useState(true)
+
+  const loadCourses = async () => {
+    try {
+      setLoading(true)
+
+      // TODO: QUERY COURSES
+
+      // For now, use dummy data:
+      dispatch(setCourses(COURSES_DUMMY_DATA))
+    } catch (err) {
+      console.error(err)
+      toast.error((err as any)?.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!!courses.length) {
+      return
+    }
+
+    loadCourses()
+  }, [courses])
+
   return (
     <StyledHomeView>
       <div className="splash-container">
@@ -52,8 +81,8 @@ const HomeView: FC = () => {
       </div>
       <WidthController>
         <div className="course-list">
-          {COURSES.map(course => (
-            <CourseCard key={course.id} course={course} />
+          {courses.map(course => (
+            <CourseCard course={course} key={course._id} />
           ))}
         </div>
       </WidthController>

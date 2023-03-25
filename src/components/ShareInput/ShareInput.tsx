@@ -1,27 +1,34 @@
+import TextareaAutosize from 'react-textarea-autosize'
 import { createRef, FC, FormEvent, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { DateTime } from 'luxon'
-import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { addPost, useAppDispatch, useAppSelector } from '../../redux'
-import { PostType } from '../../types'
-import { Avatar } from '..'
+import { ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { addCoursePost, useAppDispatch } from '../../redux'
+import { CourseType, PostType } from '../../types'
+import { Avatar, OptionsPopover } from '..'
 import { StyledShareInput } from '.'
 
-const ShareInput: FC = () => {
-  const dispatch = useAppDispatch()
-  const inputRef = createRef<HTMLInputElement>()
-  const { theme } = useAppSelector((state) => state.course)
-  const [value, setValue] = useState('')
-  
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
+type Props = {
+  course: CourseType
+}
 
-    // If the post is empty, return
+const ShareInput: FC<Props> = ({ course }) => {
+  const dispatch = useAppDispatch()
+  const inputRef = createRef<HTMLTextAreaElement>()
+  const optionsBtnRef = createRef<HTMLButtonElement>()
+  const [value, setValue] = useState('')
+  const [type, setType] = useState('post')
+  const [showOptions, setShowOptions] = useState(false)
+
+  const handleSubmit = (e?: FormEvent) => {
+    e?.preventDefault()
+
+    // If the post is empty, return.
     if (!value.trim()) {
       return
     }
 
-    // Create the post object
+    // Create the post object.
     const postObject: PostType = {
       _id: uuid(),
       content: value,
@@ -30,20 +37,65 @@ const ShareInput: FC = () => {
     }
 
     // Append the post object to the state
-    // and remove focus from the share input
-    dispatch(addPost(postObject))
-    setValue('')
+    // and remove focus from the share input.
+    dispatch(addCoursePost(postObject))
     inputRef?.current?.blur()
+
+    // Clear the state.
+    setValue('')
+    setType('post')
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <StyledShareInput htmlFor="share-input" color={theme}>
-        <Avatar/>
-        <input id="share-input" required value={value} placeholder="Say something..." type="text" lang="en" onChange={(e) => setValue(e.target.value)} ref={inputRef} />
-        <button className="send-btn" disabled={!value.trim()} type="submit" aria-label="Share post"><PaperAirplaneIcon/></button>
-      </StyledShareInput>
-    </form>
+    <>
+      <form onSubmit={e => handleSubmit(e)}>
+        <StyledShareInput htmlFor="share-input" color={course?.theme}>
+          <Avatar />
+          <TextareaAutosize
+            id="share-input"
+            required
+            value={value}
+            placeholder="Say something..."
+            lang="en"
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            ref={inputRef}
+          />
+          <button
+            className="type-select-btn"
+            data-expanded={showOptions}
+            type="button"
+            onClick={() => setShowOptions(!showOptions)}
+            ref={optionsBtnRef}
+          >
+            {type === 'assignment' ? 'Assignment' : 'Post'}
+            <ChevronDownIcon />
+          </button>
+          <button className="send-btn" disabled={!value.trim()} type="submit" aria-label="Share post">
+            <PaperAirplaneIcon />
+          </button>
+        </StyledShareInput>
+      </form>
+      <OptionsPopover
+        options={[
+          {
+            label: 'Assignment',
+            isSelected: type === 'assignment',
+            action: () => setType('assignment')
+          },
+          {
+            label: 'Post',
+            isSelected: type === 'post',
+            action: () => setType('post')
+          }
+        ]}
+        width={150}
+        classToAvoid="type-select-btn"
+        buttonRef={optionsBtnRef}
+        isOpen={showOptions}
+        onClose={() => setShowOptions(false)}
+      />
+    </>
   )
 }
 

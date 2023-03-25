@@ -1,18 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { PostType } from '../../types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CourseType, PostType } from '../../types'
 
 type InitialState = {
-  title: string
-  theme: string
-  code: string
+  course?: CourseType
   posts: PostType[]
 }
 
 const initialState: InitialState = {
-  title: 'My Cool Course',
-  theme: '#5b21b6',
-  code: '9982ejs09',
   posts: []
 }
 
@@ -20,23 +14,26 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    setTitle: (state, action: PayloadAction<InitialState['title']>) => {
-      state.title = action.payload
+    setCourse: (state, action: PayloadAction<InitialState['course']>) => {
+      state.course = action.payload
     },
-    setTheme: (state, action: PayloadAction<InitialState['theme']>) => {
-      state.theme = action.payload
+    updateCourse: (state, action: PayloadAction<Partial<InitialState['course']>>) => {
+      state.course = {
+        ...state.course,
+        ...(action.payload as any)
+      }
     },
-    setCode: (state, action: PayloadAction<InitialState['code']>) => {
-      state.code = action.payload
-    },
-    setPosts: (state, action: PayloadAction<InitialState['posts']>) => {
+    setCoursePosts: (state, action: PayloadAction<InitialState['posts']>) => {
       state.posts = action.payload
     },
-    addPost: (state, action: PayloadAction<InitialState['posts'][number]>) => {
+    addCoursePost: (state, action: PayloadAction<InitialState['posts'][number]>) => {
       state.posts = [action.payload, ...state.posts]
     },
+    removeCoursePost: (state, action: PayloadAction<string>) => {
+      state.posts = state.posts.filter(post => post._id !== action.payload)
+    }
   }
 })
 
-export const { setTitle, setTheme, setCode, setPosts, addPost } = courseSlice.actions
+export const { setCourse, updateCourse, setCoursePosts, addCoursePost, removeCoursePost } = courseSlice.actions
 export default courseSlice.reducer

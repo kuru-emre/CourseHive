@@ -1,0 +1,65 @@
+import { useHistory } from 'react-router-dom'
+import { removeCourse, updateCourse, updateCourses, useAppDispatch } from '../../redux'
+import { ROUTES } from '..'
+
+export const useCourse = () => {
+  const dispatch = useAppDispatch()
+  const history = useHistory()
+
+  const deleteCourse = async (_id: string) => {
+    try {
+      // First, remove from store.
+      // This conveys a faster speed than reality.
+
+      dispatch(removeCourse(_id))
+
+      // Then, query the backend to
+      // delete the course document.
+
+      // TODO: QUERY BACKEND
+
+      // Finally, redirect the user to the Courses page.
+      history.push(ROUTES.App.home)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const toggleCourseTheme = async (_id: string, theme: string) => {
+    try {
+      const THEMES = ['#7c3aed', '#4f46e5', '#2563eb', '#9333ea']
+      const currTheme = THEMES.indexOf(theme)
+      const nextTheme = currTheme === THEMES.length - 1 ? 0 : currTheme + 1
+
+      // First, changes the theme in the store.
+      // This conveys a faster speed than reality.
+
+      dispatch(
+        updateCourse({
+          theme: THEMES[nextTheme]
+        })
+      )
+
+      dispatch(
+        updateCourses({
+          _id,
+          course: {
+            theme: THEMES[nextTheme]
+          }
+        })
+      )
+
+      // Then, query the backend to
+      // update the course document.
+
+      // TODO: QUERY BACKEND
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  return {
+    deleteCourse,
+    toggleCourseTheme
+  }
+}

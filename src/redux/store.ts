@@ -1,15 +1,17 @@
 import storage from 'redux-persist/lib/storage'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
-import { courseReducer } from './slices'
+import { courseReducer, coursesReducer, userReducer } from './slices'
 
 const reducers = combineReducers({
-  course: courseReducer
+  course: courseReducer,
+  courses: coursesReducer,
+  user: userReducer
 })
 
 const persistConfig = {
   key: 'root',
-  whitelist: [''],
+  whitelist: ['user'],
   storage
 }
 
@@ -18,7 +20,7 @@ const persistedReducer = persistReducer(persistConfig, reducers)
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
     })

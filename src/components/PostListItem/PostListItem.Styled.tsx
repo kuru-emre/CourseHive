@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledPostListItem = styled.div`
-  border-radius: 10px;
+  border-radius: 6px;
   transition: 0.2s;
   overflow: hidden;
   box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1), 0 1px 2px rgb(0, 0, 0, 0.1);
@@ -22,13 +22,13 @@ const StyledPostListItem = styled.div`
         span {
           display: block;
         }
-  
+
         .post-user-name {
           font-weight: 500;
           font-size: 15px;
           color: ${({ theme }) => theme.color.gray[800]};
         }
-  
+
         .post-date {
           font-size: 13px;
           margin-top: 3px;
@@ -37,13 +37,13 @@ const StyledPostListItem = styled.div`
       }
     }
 
-    .more-btn {
+    .options-btn {
       width: 30px;
       height: 30px;
       border-radius: 4px;
       background-color: ${({ theme }) => theme.color.gray[100]};
       color: ${({ theme }) => theme.color.gray[500]};
-  
+
       svg {
         height: 22px;
       }

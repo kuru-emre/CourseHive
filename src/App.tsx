@@ -1,12 +1,13 @@
 import { FC } from 'react'
+import { Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
-import { Navbar } from './components/Navbar'
+import { AppLayout } from './components'
 import { persistor, store } from './redux'
 import { Global, ROUTES, theme } from './utils'
-import { CoursePage, HomeView, Login, Profile, Register, Settings } from './views'
+import { CourseView, HomeView, Login, Profile, Register, Settings } from './views'
 
 const App: FC = () => {
   return (
@@ -15,16 +16,20 @@ const App: FC = () => {
         <ThemeProvider theme={theme}>
           <Global />
           <Router>
-            <Navbar />
-            <Routes>
-              <Route path={ROUTES.App.home} element={<HomeView />} />
-              <Route path={ROUTES.App.course} element={<CoursePage />} />
-              <Route path={ROUTES.App.login} element={<Login />} />
-              <Route path={ROUTES.App.register} element={<Register />} />
-              <Route path={ROUTES.App.settings} element={<Settings />} />
-              <Route path={ROUTES.App.profile} element={<Profile />} />
-            </Routes>
+            <Switch>
+              <Route path={ROUTES.App.login} component={Login} />
+              <Route path={ROUTES.App.register} component={Register} />
+              <AppLayout>
+                <Switch>
+                  <Route path={ROUTES.App.home} component={HomeView} exact />
+                  <Route path={ROUTES.App.course} component={CourseView} />
+                  <Route path={ROUTES.App.settings} component={Settings} />
+                  <Route path={ROUTES.App.profile} component={Profile} />
+                </Switch>
+              </AppLayout>
+            </Switch>
           </Router>
+          <Toaster position="bottom-center" />
         </ThemeProvider>
       </PersistGate>
     </Provider>

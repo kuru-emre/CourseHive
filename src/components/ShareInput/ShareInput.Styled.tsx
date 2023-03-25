@@ -5,16 +5,17 @@ type StyledProps = {
 }
 
 const StyledShareInput = styled.label<StyledProps>`
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 10px;
-  margin: 20px 0;
   display: flex;
   transition: 0.2s;
   box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1), 0 1px 2px rgb(0, 0, 0, 0.1);
 
-  input {
+  textarea {
     width: 100%;
-    padding: 0 14px;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    resize: none;
     background-color: transparent;
 
     &::placeholder {
@@ -22,14 +23,44 @@ const StyledShareInput = styled.label<StyledProps>`
     }
   }
 
-  .send-btn {
-    width: 46px;
+  button {
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 4px;
     background-color: ${({ color }) => color}20;
     color: ${({ color }) => color};
+  }
+
+  .type-select-btn {
+    padding: 0 10px 0 12px;
+    justify-content: space-between;
+    margin-right: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+
+    svg {
+      height: 16px;
+      stroke-width: 2.8px;
+      margin-left: 6px;
+    }
+
+    &:hover,
+    &[data-expanded='true'] {
+      background-color: ${({ color }) => color}30;
+    }
+  }
+
+  .send-btn {
+    width: 38px;
+    background-color: ${({ color }) => color};
+    color: ${({ theme }) => theme.color.background};
 
     svg {
       height: 22px;
+      stroke-width: 2px;
     }
 
     &:disabled {
@@ -41,10 +72,6 @@ const StyledShareInput = styled.label<StyledProps>`
 
   &:focus-within {
     box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1), 0 3px 6px rgb(0, 0, 0, 0.1);
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoint.s}px) {
-    margin: 40px 0;
   }
 `
 

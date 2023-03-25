@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 
-type StyledProps = {
-  color: string
-}
-
-const StyledNavbar = styled.header<StyledProps>`
+const StyledNavbar = styled.header`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.color.background};

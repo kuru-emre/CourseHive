@@ -1,8 +1,8 @@
 export type CourseType = {
-  id: string
-  name: string
+  _id: string
+  title: string
   code: string
-  studentCount: number
+  students: number
   details?: string[]
   theme: string
 }

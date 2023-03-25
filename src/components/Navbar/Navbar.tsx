@@ -1,21 +1,18 @@
 import { FC, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
-import { useAppSelector } from '../../redux'
-import { Avatar } from '../Avatar'
 import { JoinClassModal } from '../modals'
-import { StyledNavbar } from '.'
-import { Link, NavLink } from 'react-router-dom'
 import { ROUTES } from '../../utils'
-import { WidthController } from '../system'
+import { Avatar, WidthController } from '..'
+import { StyledNavbar } from '.'
 
 const Navbar: FC = () => {
-  const { theme } = useAppSelector(state => state.course)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <>
-      <StyledNavbar color={theme}>
+      <StyledNavbar>
         <WidthController>
           <div className="header">
             <div className="header-group">
@@ -23,7 +20,7 @@ const Navbar: FC = () => {
                 <Logo />
               </Link>
               <nav>
-                <NavLink to={ROUTES.App.home}>
+                <NavLink to={ROUTES.App.home} exact>
                   <span>Home</span>
                 </NavLink>
                 <NavLink to={ROUTES.App.profile}>
