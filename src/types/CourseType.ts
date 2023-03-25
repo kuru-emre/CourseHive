@@ -3,6 +3,5 @@ export type CourseType = {
   title: string
   code: string
   students: number
-  details?: string[]
   theme: string
 }

@@ -53,6 +53,51 @@ const StyledShareInput = styled.label<StyledProps>`
     }
   }
 
+  .date-btn {
+    width: 38px;
+    margin-right: 8px;
+    position: relative;
+    overflow: hidden;
+
+    svg {
+      height: 22px;
+      stroke-width: 2px;
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      cursor: pointer;
+
+      ::-webkit-calendar-picker-indicator {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      ::-webkit-datetime-edit-fields-wrapper,
+      ::-webkit-inner-spin-button,
+      ::-webkit-datetime-edit,
+      ::-webkit-datetime-edit-text,
+      ::-webkit-datetime-edit-month-field,
+      ::-webkit-datetime-edit-day-field,
+      ::-webkit-datetime-edit-year-field {
+        display: none;
+      }
+    }
+
+    &:hover {
+      background-color: ${({ color }) => color}30;
+    }
+  }
+
   .send-btn {
     width: 38px;
     background-color: ${({ color }) => color};

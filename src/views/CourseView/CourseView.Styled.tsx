@@ -97,7 +97,6 @@ const StyledCourseView = styled.div<StyledProps>`
     .course-detail-panel {
       background-color: ${({ theme }) => theme.color.gray[100]};
       border-radius: 6px;
-      min-height: 250px;
       box-sizing: border-box;
 
       .course-detail-panel-heading {
@@ -114,9 +113,70 @@ const StyledCourseView = styled.div<StyledProps>`
         }
       }
 
-      .course-upcoming-list-title {
+      .course-detail-panel-title {
         font-size: 14px;
         font-weight: 600;
+      }
+
+      .course-upcoming-list,
+      .course-student-list {
+        margin: 0;
+        padding: 16px;
+        list-style-type: none;
+        display: grid;
+        gap: 10px;
+
+        li {
+          padding: 10px;
+          border-radius: 6px;
+          background-color: ${({ theme }) => theme.color.background};
+          box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1), 0 1px 3px rgb(0, 0, 0, 0.1);
+
+          .assignment-title {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: ${({ theme }) => theme.color.gray[700]};
+          }
+
+          .assignment-due-date {
+            display: block;
+            font-size: 12px;
+            margin-top: 3px;
+            color: ${({ theme }) => theme.color.gray[500]};
+          }
+        }
+      }
+
+      .empty-state {
+        user-select: none;
+        padding: 10px 0;
+
+        img {
+          pointer-events: none;
+          margin: 0 auto 16px auto;
+          width: 100px;
+          display: block;
+        }
+
+        span {
+          display: block;
+          text-align: center;
+          margin: 0 auto;
+        }
+
+        .empty-state-title {
+          font-weight: 600;
+          font-size: 14px;
+          color: ${({ theme }) => theme.color.gray[800]};
+        }
+
+        .empty-state-body {
+          font-size: 12px;
+          margin-top: 4px;
+          line-height: 18px;
+          color: ${({ theme }) => theme.color.gray[500]};
+        }
       }
 
       &:not(:first-child) {

@@ -1,7 +1,8 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { DateTime } from 'luxon'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { setCourse, useAppDispatch } from '../../redux'
+import { setCourse, useAppDispatch, useAppSelector } from '../../redux'
 import { CourseType } from '../../types'
 import { StyledCourseCard } from '.'
 
@@ -10,7 +11,8 @@ type Props = {
 }
 
 const CourseCard: FC<Props> = ({ course }) => {
-  const { _id, title, details, students, theme } = course
+  const { _id, title, students, theme } = course
+  const { posts } = useAppSelector(state => state.course)
   const dispatch = useAppDispatch()
 
   const handleCourseClick = () => {
@@ -32,13 +34,19 @@ const CourseCard: FC<Props> = ({ course }) => {
           </button>
         </div>
 
-        {details && (
-          <ul className="extra-details">
-            {details.map((detail, idx) => (
-              <li key={idx}>{detail}</li>
-            ))}
-          </ul>
-        )}
+        <div className="extra-details">
+          {posts
+            .filter(post => post.course === course._id && post.type === 'assignment')
+            .map(assignment => {
+              return (
+                <li key={assignment._id}>
+                  <span className="assignment-title">
+                    ({DateTime.fromISO(assignment.dueAt!).toRelative()}) {assignment.content}
+                  </span>
+                </li>
+              )
+            })}
+        </div>
       </Link>
     </StyledCourseCard>
   )

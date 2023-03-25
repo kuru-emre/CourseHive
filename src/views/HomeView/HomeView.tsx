@@ -12,7 +12,6 @@ const COURSES_DUMMY_DATA: CourseType[] = [
     title: 'Computer Science 101',
     code: 'ghd72f',
     students: 25,
-    details: ['Due today - Assignment 2'],
     theme: '#7c3aed'
   },
   {
@@ -20,7 +19,6 @@ const COURSES_DUMMY_DATA: CourseType[] = [
     title: 'Cooking Class',
     code: 'fhaj2a',
     students: 122,
-    details: ['Due today - Assignment 2'],
     theme: '#4f46e5'
   },
   {
@@ -28,7 +26,6 @@ const COURSES_DUMMY_DATA: CourseType[] = [
     title: 'Origami Fundamentals',
     code: 'lk87afa',
     students: 38,
-    details: ['Due today - Assignment 2'],
     theme: '#2563eb'
   },
   {
@@ -36,7 +33,6 @@ const COURSES_DUMMY_DATA: CourseType[] = [
     title: 'Ancient Rome',
     code: 'poiw821',
     students: 221,
-    details: ['Due today - Assignment 2'],
     theme: '#9333ea'
   }
 ]

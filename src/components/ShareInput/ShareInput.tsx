@@ -1,6 +1,6 @@
 import TextareaAutosize from 'react-textarea-autosize'
 import { createRef, FC, FormEvent, useState } from 'react'
-import { ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, ClockIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import { CourseType, PostType } from '../../types'
 import { usePost } from '../../utils'
 import { Avatar, OptionsPopover } from '..'
@@ -15,6 +15,7 @@ const ShareInput: FC<Props> = ({ course }) => {
   const optionsBtnRef = createRef<HTMLButtonElement>()
   const { createPost } = usePost()
   const [value, setValue] = useState('')
+  const [dueDate, setDueDate] = useState('')
   const [type, setType] = useState<PostType['type']>('post')
   const [showOptions, setShowOptions] = useState(false)
 
@@ -28,7 +29,7 @@ const ShareInput: FC<Props> = ({ course }) => {
 
     // Create the post and remove
     // focus from the share input.
-    await createPost(value, type)
+    await createPost(value, type, dueDate)
     inputRef?.current?.blur()
 
     // Clear the state.
@@ -66,7 +67,18 @@ const ShareInput: FC<Props> = ({ course }) => {
             {type === 'assignment' ? 'Assignment' : 'Post'}
             <ChevronDownIcon />
           </button>
-          <button className="send-btn" disabled={!value.trim()} type="submit" aria-label="Share post">
+          {type === 'assignment' && (
+            <button className="date-btn" type="button">
+              <input type="datetime-local" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+              <ClockIcon />
+            </button>
+          )}
+          <button
+            className="send-btn"
+            disabled={!value.trim() || (type === 'assignment' && !dueDate)}
+            type="submit"
+            aria-label="Share post"
+          >
             <PaperAirplaneIcon />
           </button>
         </StyledShareInput>

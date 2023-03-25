@@ -1,11 +1,13 @@
 import { createRef, FC, useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import { assign } from 'lodash'
+import { DateTime } from 'luxon'
 import { Cog6ToothIcon, DocumentDuplicateIcon, PencilIcon, SwatchIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentListIcon, UserGroupIcon } from '@heroicons/react/20/solid'
 import { InputModal, OptionsPopover, PostList, ShareInput, WidthController } from '../../components'
 import { useAppSelector } from '../../redux'
 import { copyToClipboard, ROUTES, useCourse } from '../../utils'
 import { StyledCourseView } from '.'
-import { ClipboardDocumentListIcon, UserGroupIcon } from '@heroicons/react/20/solid'
 
 const CourseView: FC = () => {
   const optionsBtnRef = createRef<HTMLButtonElement>()
@@ -50,16 +52,45 @@ const CourseView: FC = () => {
               <div className="course-detail-panel">
                 <div className="course-detail-panel-heading">
                   <ClipboardDocumentListIcon />
-                  <span className="course-upcoming-list-title">Upcoming Assignments</span>
+                  <span className="course-detail-panel-title">Upcoming Assignments</span>
                 </div>
-                <div className="course-upcoming-list"></div>
+                <ul className="course-upcoming-list">
+                  {posts
+                    .filter(post => post.course === course._id && post.type === 'assignment')
+                    .map(assignment => {
+                      return (
+                        <li key={assignment._id}>
+                          <span className="assignment-title">{assignment.content}</span>
+                          <span className="assignment-due-date">
+                            Due {DateTime.fromISO(assignment.dueAt!).toRelative()}
+                          </span>
+                        </li>
+                      )
+                    })}
+
+                  {!posts.filter(post => post.course === course._id && post.type === 'assignment').length && (
+                    <div className="empty-state">
+                      <img
+                        src="https://ouch-cdn2.icons8.com/Hu_m_T7VgC5r9EfY7Ics-dvvm8W0ZwyrDfuTbeFUjlQ/rs:fit:256:143/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvODM2/L2U5YmM5NjBkLTgy/NjYtNDEzMS1hNTUx/LTQ3MGFiMWQ2NTcz/Yy5wbmc.png"
+                        alt=""
+                      />
+                      <span className="empty-state-title">No upcoming assignments</span>
+                      <span className="empty-state-body">Assignments will appear here.</span>
+                    </div>
+                  )}
+                </ul>
               </div>
               <div className="course-detail-panel">
                 <div className="course-detail-panel-heading">
                   <UserGroupIcon />
-                  <span className="course-upcoming-list-title">Enrolled Students</span>
+                  <span className="course-detail-panel-title">Enrolled Students</span>
                 </div>
-                <div className="course-upcoming-list"></div>
+                <div className="course-student-list">
+                  <div className="empty-state">
+                    <span className="empty-state-title">No enrolled students</span>
+                    <span className="empty-state-body">Invite students to your course.</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

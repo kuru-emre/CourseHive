@@ -4,5 +4,6 @@ export type PostType = {
   type: 'post' | 'assignment'
   course: string
   user: string
+  dueAt?: string
   createdAt: string
 }

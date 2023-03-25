@@ -59,11 +59,22 @@ const StyledCourseCard = styled.div<StyledProps>`
   .extra-details {
     margin: 0;
     padding: 20px;
+    display: grid;
+    gap: 10px;
 
     li {
       list-style-type: none;
       color: #1f2937;
       font-size: 14px;
+
+      span {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-align: left;
+        -webkit-box-orient: vertical;
+      }
     }
   }
 

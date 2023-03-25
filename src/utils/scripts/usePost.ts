@@ -24,7 +24,7 @@ export const usePost = () => {
     }
   }
 
-  const createPost = async (content: string, type: PostType['type']) => {
+  const createPost = async (content: string, type: PostType['type'], dueAt?: string) => {
     try {
       // First, create the post document
 
@@ -35,6 +35,7 @@ export const usePost = () => {
         _id: uuid(),
         content,
         type,
+        dueAt,
         course: course?._id!,
         user: user?._id!,
         createdAt: DateTime.now().toISO()

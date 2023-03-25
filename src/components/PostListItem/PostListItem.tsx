@@ -23,7 +23,10 @@ const PostListItem: FC<Props> = ({ post }) => {
             <Avatar />
             <div className="post-details">
               <span className="post-user-name">Jamel Hammoud</span>
-              <span className="post-date">{DateTime.fromISO(post.createdAt).toRelative()}</span>
+              <span className="post-date">
+                {DateTime.fromISO(post.createdAt).toRelative()}{' '}
+                {post.type === 'assignment' && <>| Due {DateTime.fromISO(post.dueAt!).toRelative()}</>}
+              </span>
             </div>
           </div>
           <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
