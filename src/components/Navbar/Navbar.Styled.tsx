@@ -59,7 +59,7 @@ const StyledNavbar = styled.header`
         }
       }
 
-      button {
+      .join-course-btn {
         display: flex;
         align-items: center;
         padding: 0 12px 0 16px;
@@ -79,6 +79,15 @@ const StyledNavbar = styled.header`
         &:hover {
           background-color: ${({ theme }) => theme.color.gray[700]};
         }
+      }
+
+      .options-btn {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border-radius: 50%;
       }
     }
   }

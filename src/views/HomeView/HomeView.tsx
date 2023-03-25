@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { CourseCard, WidthController } from '../../components'
 import { CourseType } from '../../types'
+import { getFirstName } from '../../utils'
 import { setCourses, useAppDispatch, useAppSelector } from '../../redux'
 import { StyledHomeView } from '.'
 
@@ -43,6 +44,7 @@ const COURSES_DUMMY_DATA: CourseType[] = [
 const HomeView: FC = () => {
   const dispatch = useAppDispatch()
   const { courses } = useAppSelector(state => state.courses)
+  const { user } = useAppSelector(state => state.user)
   const [loading, setLoading] = useState(true)
 
   const loadCourses = async () => {
@@ -74,7 +76,7 @@ const HomeView: FC = () => {
       <div className="splash-container">
         <WidthController>
           <div className="splash">
-            <h1>Welcome back, Jamel</h1>
+            <h1>Welcome back, {getFirstName(user?.name || '')}</h1>
             <p>What will you learn today?</p>
           </div>
         </WidthController>

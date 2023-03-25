@@ -1,14 +1,18 @@
-import { FC, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { PlusIcon } from '@heroicons/react/24/outline'
+import { createRef, FC, useState } from 'react'
+import { Link, NavLink, useHistory } from 'react-router-dom'
+import { ArrowRightOnRectangleIcon, PlusIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { JoinClassModal } from '../modals'
-import { ROUTES } from '../../utils'
-import { Avatar, WidthController } from '..'
+import { ROUTES, useUser } from '../../utils'
+import { Avatar, OptionsPopover, WidthController } from '..'
 import { StyledNavbar } from '.'
 
 const Navbar: FC = () => {
+  const history = useHistory()
+  const optionsBtnRef = createRef<HTMLButtonElement>()
+  const { logout } = useUser()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
 
   return (
     <>
@@ -36,12 +40,34 @@ const Navbar: FC = () => {
                 <span>New Course</span>
                 <PlusIcon />
               </button>
-              <Avatar />
+              <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
+                <Avatar />
+              </button>
             </div>
           </div>
         </WidthController>
       </StyledNavbar>
       <JoinClassModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+      <OptionsPopover
+        options={[
+          {
+            icon: <UserCircleIcon />,
+            label: 'Edit profile',
+            action: () => history.push(ROUTES.App.profile)
+          },
+          {
+            icon: <ArrowRightOnRectangleIcon />,
+            label: 'Log out',
+            action: () => logout()
+          }
+        ]}
+        divsAfter={['Edit profile']}
+        width={150}
+        classToAvoid="options-btn"
+        buttonRef={optionsBtnRef}
+        isOpen={showOptions}
+        onClose={() => setShowOptions(false)}
+      />
     </>
   )
 }

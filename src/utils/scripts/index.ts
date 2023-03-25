@@ -1,3 +1,5 @@
 export { copyToClipboard } from './copyToClipboard'
+export { getFirstName } from './getFirstName'
 export { useCourse } from './useCourse'
 export { usePost } from './usePost'
+export { useUser } from './useUser'
