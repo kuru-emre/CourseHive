@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "tsc && env node built/server.js",
-    "watch": "env npx nodemon ./server.ts",
+    "watch": "env yarn nodemon ./server.ts",
     "env": "dotenv -e .env"
   },
   "dependencies": {
