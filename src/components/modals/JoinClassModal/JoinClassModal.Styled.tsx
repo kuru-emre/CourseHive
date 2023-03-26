@@ -20,9 +20,10 @@ const StyledJoinClassModal = styled.div<StyledProps>`
       border-radius: 5px 5px 0 0;
       color: #1f2937;
       transition: all 0.3s ease-out;
+      background-color: #e1e1e1;
 
       &.active {
-        background-color: #d1d5db;
+        background-color: #fff;
 
         .toggleIcon {
           color: #fff;
@@ -60,23 +61,27 @@ const StyledJoinClassModal = styled.div<StyledProps>`
     }
 
     .action-button {
-      background-color: #4f46e5;
-      color: #fff;
+      background-color: ${({ theme }) => theme.color.gray[800]};
+      color: ${({ theme }) => theme.color.background};
       border-radius: 4px;
       font-size: 1rem;
       font-weight: 400;
       user-select: none;
       padding: 10px 16px;
 
-      &.disabled {
-        background-color: #404040;
-        color: var(--color2);
-        pointer-events: none;
-        opacity: 0.5;
+      &:disabled {
+        background-color: ${({ theme }) => theme.color.gray[100]};
+        color: ${({ theme }) => theme.color.gray[400]};
+
+        &:hover {
+          cursor: not-allowed;
+          background-color: ${({ theme }) => theme.color.gray[100]};
+          color: ${({ theme }) => theme.color.gray[400]};
+        }
       }
 
       &:hover {
-        background-color: #5952e0;
+        background-color: ${({ theme }) => theme.color.gray[700]};
       }
     }
   }
