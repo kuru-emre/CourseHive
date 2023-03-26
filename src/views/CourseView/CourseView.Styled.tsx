@@ -1,7 +1,20 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import { theme } from '../../utils'
+
+const pulseAnim = keyframes`
+  0% {
+    background: ${theme.color.gray[100]};
+  }
+  50% {
+    background: ${theme.color.gray[200]};
+  }
+  100% {
+    background: ${theme.color.gray[100]};
+  }
+`
 
 type StyledProps = {
-  color: string
+  color?: string
 }
 
 const StyledCourseView = styled.div<StyledProps>`
@@ -62,6 +75,7 @@ const StyledCourseView = styled.div<StyledProps>`
       display: flex;
       justify-content: end;
       align-items: center;
+      height: 36px;
 
       button {
         height: 36px;
@@ -86,7 +100,8 @@ const StyledCourseView = styled.div<StyledProps>`
     }
   }
 
-  .course-content {
+  .course-content,
+  .skeleton-content {
     display: grid;
     gap: 20px;
 
@@ -125,7 +140,9 @@ const StyledCourseView = styled.div<StyledProps>`
         list-style-type: none;
         display: grid;
         gap: 10px;
+      }
 
+      .course-upcoming-list {
         li {
           padding: 10px;
           border-radius: 6px;
@@ -144,6 +161,20 @@ const StyledCourseView = styled.div<StyledProps>`
             font-size: 12px;
             margin-top: 3px;
             color: ${({ theme }) => theme.color.gray[500]};
+          }
+        }
+      }
+
+      .course-student-list {
+        li {
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          font-size: 14px;
+          color: ${({ theme }) => theme.color.gray[700]};
+
+          .avatar {
+            margin-right: 10px;
           }
         }
       }
@@ -185,8 +216,42 @@ const StyledCourseView = styled.div<StyledProps>`
     }
   }
 
+  &.skeleton {
+    .skeleton-splash {
+      margin-bottom: 20px;
+      height: 197px;
+      border-radius: 10px;
+      animation: ${pulseAnim} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .skeleton-posts {
+      display: grid;
+      gap: 20px;
+      align-content: start;
+
+      div {
+        height: 109.5px;
+        border-radius: 6px;
+        animation: ${pulseAnim} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    }
+
+    .skeleton-details {
+      display: grid;
+      gap: 20px;
+      align-content: start;
+
+      div {
+        height: 134.5px;
+        border-radius: 6px;
+        animation: ${pulseAnim} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    }
+  }
+
   @media (min-width: 750px) {
-    .course-content {
+    .course-content,
+    .skeleton-content {
       grid-template-columns: minmax(0, 1fr) 300px;
     }
   }

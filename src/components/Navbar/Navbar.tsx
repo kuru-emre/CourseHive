@@ -4,6 +4,7 @@ import { ArrowRightOnRectangleIcon, PlusIcon, UserCircleIcon } from '@heroicons/
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { JoinClassModal } from '../modals'
 import { ROUTES, useUser } from '../../utils'
+import { useAppSelector } from '../../redux'
 import { Avatar, OptionsPopover, WidthController } from '..'
 import { StyledNavbar } from '.'
 
@@ -11,6 +12,7 @@ const Navbar: FC = () => {
   const history = useHistory()
   const optionsBtnRef = createRef<HTMLButtonElement>()
   const { logout } = useUser()
+  const { user } = useAppSelector(state => state.user)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
 
@@ -41,7 +43,7 @@ const Navbar: FC = () => {
                 <PlusIcon />
               </button>
               <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
-                <Avatar />
+                <Avatar name={user?.name} />
               </button>
             </div>
           </div>

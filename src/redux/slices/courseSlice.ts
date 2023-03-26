@@ -3,6 +3,7 @@ import { CourseType, PostType } from '../../types'
 
 type InitialState = {
   course?: CourseType
+  isTeacher?: boolean
   posts: PostType[]
 }
 
@@ -31,9 +32,19 @@ export const courseSlice = createSlice({
     },
     removeCoursePost: (state, action: PayloadAction<string>) => {
       state.posts = state.posts.filter(post => post._id !== action.payload)
+    },
+    setCourseIsTeacher: (state, action: PayloadAction<boolean>) => {
+      state.isTeacher = action.payload
     }
   }
 })
 
-export const { setCourse, updateCourse, setCoursePosts, addCoursePost, removeCoursePost } = courseSlice.actions
+export const {
+  setCourse,
+  updateCourse,
+  setCoursePosts,
+  addCoursePost,
+  removeCoursePost,
+  setCourseIsTeacher
+} = courseSlice.actions
 export default courseSlice.reducer

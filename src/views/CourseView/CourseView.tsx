@@ -1,23 +1,64 @@
-import { createRef, FC, useState } from 'react'
-import { Redirect } from 'react-router-dom'
-import { assign } from 'lodash'
+import { createRef, FC, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { DateTime } from 'luxon'
 import { Cog6ToothIcon, DocumentDuplicateIcon, PencilIcon, SwatchIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { ClipboardDocumentListIcon, UserGroupIcon } from '@heroicons/react/20/solid'
-import { InputModal, OptionsPopover, PostList, ShareInput, WidthController } from '../../components'
-import { useAppSelector } from '../../redux'
-import { copyToClipboard, ROUTES, useCourse } from '../../utils'
+import { Avatar, InputModal, OptionsPopover, PostList, ShareInput, Spinner, WidthController } from '../../components'
+import { setCourse, setCourseIsTeacher, setCoursePosts, useAppDispatch, useAppSelector } from '../../redux'
+import { copyToClipboard, useCourse, useMailman } from '../../utils'
+import { UserType } from '../../types'
 import { StyledCourseView } from '.'
 
 const CourseView: FC = () => {
   const optionsBtnRef = createRef<HTMLButtonElement>()
-  const { course, posts } = useAppSelector(state => state.course)
+  const dispatch = useAppDispatch()
+  const { _id }: any = useParams()
+  const { mailman } = useMailman()
+  const { course, posts, isTeacher } = useAppSelector(state => state.course)
+  const { user } = useAppSelector(state => state.user)
   const { deleteCourse, toggleCourseTheme, renameCourse } = useCourse()
   const [showOptions, setShowOptions] = useState(false)
   const [showRenameModal, setShowRenameModal] = useState(false)
 
+  const loadCourse = async () => {
+    if (!_id) {
+      return
+    }
+
+    const { course, posts } = await mailman('courses', _id)
+    dispatch(setCourse(course))
+    dispatch(setCoursePosts(posts))
+    dispatch(setCourseIsTeacher(!!course.teachers.find((teacher: UserType) => teacher._id === user?._id)))
+  }
+
+  useEffect(() => {
+    loadCourse()
+
+    return () => {
+      dispatch(setCourse(undefined))
+      dispatch(setCourseIsTeacher(false))
+    }
+  }, [])
+
   if (!course?._id) {
-    return <Redirect to={ROUTES.App.home} />
+    return (
+      <WidthController>
+        <StyledCourseView className="skeleton">
+          <div className="skeleton-splash" />
+          <div className="skeleton-content">
+            <div className="skeleton-posts">
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="skeleton-details">
+              <div />
+              <div />
+            </div>
+          </div>
+        </StyledCourseView>
+      </WidthController>
+    )
   }
 
   return (
@@ -36,16 +77,20 @@ const CourseView: FC = () => {
               </button>
             </span>
             <div className="course-actions">
-              <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
-                <Cog6ToothIcon />
-              </button>
+              {isTeacher && (
+                <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
+                  <Cog6ToothIcon />
+                </button>
+              )}
             </div>
           </div>
           <div className="course-content">
             <div className="course-left">
-              <div className="course-post-input">
-                <ShareInput course={course} />
-              </div>
+              {isTeacher && (
+                <div className="course-post-input">
+                  <ShareInput course={course} />
+                </div>
+              )}
               <PostList posts={posts.filter(post => post.course === course._id)} />
             </div>
             <div className="course-details">
@@ -85,12 +130,22 @@ const CourseView: FC = () => {
                   <UserGroupIcon />
                   <span className="course-detail-panel-title">Enrolled Students</span>
                 </div>
-                <div className="course-student-list">
-                  <div className="empty-state">
-                    <span className="empty-state-title">No enrolled students</span>
-                    <span className="empty-state-body">Invite students to your course.</span>
-                  </div>
-                </div>
+                <ul className="course-student-list">
+                  {!course.students.length && (
+                    <div className="empty-state">
+                      <span className="empty-state-title">No enrolled students</span>
+                      <span className="empty-state-body">Invite students to your course.</span>
+                    </div>
+                  )}
+                  {course.students.map(student => {
+                    return (
+                      <li key={student._id}>
+                        <Avatar name={student.name} color={course.theme} size={28} />
+                        <span className="student-name">{student.name}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
               </div>
             </div>
           </div>

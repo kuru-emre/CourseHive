@@ -8,31 +8,35 @@ import { StyledHomeView } from '.'
 
 const COURSES_DUMMY_DATA: CourseType[] = [
   {
-    _id: '8572387572',
+    _id: '642089f5eaf628243b658ce9',
     title: 'Computer Science 101',
     code: 'ghd72f',
-    students: 25,
+    students: [],
+    teachers: [],
     theme: '#7c3aed'
   },
   {
-    _id: '1572387572',
+    _id: '642089f5eaf628243b658cea',
     title: 'Cooking Class',
     code: 'fhaj2a',
-    students: 122,
+    students: [],
+    teachers: [],
     theme: '#4f46e5'
   },
   {
-    _id: '3572387572',
-    title: 'Origami Fundamentals',
+    _id: '642089f5eaf628243b658ceb',
+    title: 'I own this class',
     code: 'lk87afa',
-    students: 38,
+    students: [],
+    teachers: [],
     theme: '#2563eb'
   },
   {
-    _id: '6572387572',
-    title: 'Ancient Rome',
+    _id: '642089f5eaf628243b658cec',
+    title: 'I also own this class',
     code: 'poiw821',
-    students: 221,
+    students: [],
+    teachers: [],
     theme: '#9333ea'
   }
 ]

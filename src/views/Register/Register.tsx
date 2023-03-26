@@ -31,7 +31,7 @@ export const Register: FC = () => {
     setErrors(validator.registerValidation(email, password, name, eduName))
 
     // EXAMPLE FOR REGISTERING:
-    await register(name, email, 'student', password)
+    await register(name, email, password)
   }
 
   useEffect(() => {

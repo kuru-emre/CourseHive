@@ -1,15 +1,14 @@
 import { DateTime } from 'luxon'
 import { createRef, FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { DocumentDuplicateIcon, TrashIcon } from '@heroicons/react/24/outline'
-
-import { setCourse, useAppDispatch, useAppSelector } from '../../redux'
-import { CourseType } from '../../types'
+import { useAppSelector } from '../../redux'
 import { copyToClipboard, useCourse } from '../../utils'
 import { OptionsPopover } from '../popovers'
-import { StyledCourseCard } from './'
+import { CourseType } from '../../types'
+import { ROUTES } from '../../utils'
+import { StyledCourseCard } from '.'
 
 type Props = {
   course: CourseType
@@ -17,15 +16,10 @@ type Props = {
 
 const CourseCard: FC<Props> = ({ course }) => {
   const { _id, title, students, theme } = course
-  const { posts } = useAppSelector((state) => state.course)
-  const dispatch = useAppDispatch()
+  const { posts } = useAppSelector(state => state.course)
   const optionsBtnRef = createRef<HTMLButtonElement>()
   const [showOptions, setShowOptions] = useState(false)
   const { deleteCourse } = useCourse()
-
-  const handleCourseClick = () => {
-    dispatch(setCourse(course))
-  }
 
   const handleMoreOptionsClick = (e: any) => {
     e.preventDefault()
@@ -40,23 +34,23 @@ const CourseCard: FC<Props> = ({ course }) => {
   return (
     <>
       <StyledCourseCard color={theme}>
-        <Link to={`courses/${_id}`} onClick={() => handleCourseClick()}>
+        <Link to={ROUTES.App.courseById(_id)}>
           <div className="course-details-wrapper">
             <div className="course-details">
               <span className="course-name">{title}</span>
               <span className="course-count">
-                {students} student{students > 1 ? 's' : ''}
+                {students.length} student{students.length > 1 ? 's' : ''}
               </span>
             </div>
-            <button className="more-btn" ref={optionsBtnRef} onClick={(e) => handleMoreOptionsClick(e)}>
+            <button className="more-btn" ref={optionsBtnRef} onClick={e => handleMoreOptionsClick(e)}>
               <EllipsisVerticalIcon />
             </button>
           </div>
 
           <div className="extra-details">
             {posts
-              .filter((post) => post.course === course._id && post.type === 'assignment')
-              .map((assignment) => {
+              .filter(post => post.course === course._id && post.type === 'assignment')
+              .map(assignment => {
                 return (
                   <li key={assignment._id}>
                     <span className="assignment-title">

@@ -1,7 +1,10 @@
+import { UserType } from '.'
+
 export type CourseType = {
   _id: string
   title: string
   code: string
-  students: number
+  students: UserType[]
+  teachers: UserType[]
   theme: string
 }

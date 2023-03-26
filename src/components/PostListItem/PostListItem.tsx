@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import { EllipsisVerticalIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { PostType } from '../../types'
 import { usePost } from '../../utils'
+import { useAppSelector } from '../../redux'
 import { Avatar, OptionsPopover } from '..'
 import { StyledPostListItem } from '.'
 
@@ -12,6 +13,7 @@ type Props = {
 
 const PostListItem: FC<Props> = ({ post }) => {
   const optionsBtnRef = createRef<HTMLButtonElement>()
+  const { isTeacher, course } = useAppSelector(state => state.course)
   const { deletePost } = usePost()
   const [showOptions, setShowOptions] = useState(false)
 
@@ -20,18 +22,20 @@ const PostListItem: FC<Props> = ({ post }) => {
       <StyledPostListItem>
         <div className="post-header">
           <div className="post-details-container">
-            <Avatar />
+            <Avatar name={post.user.name} color={course?.theme} />
             <div className="post-details">
-              <span className="post-user-name">Jamel Hammoud</span>
+              <span className="post-user-name">{post.user.name}</span>
               <span className="post-date">
                 {DateTime.fromISO(post.createdAt).toRelative()}{' '}
                 {post.type === 'assignment' && <>| Due {DateTime.fromISO(post.dueAt!).toRelative()}</>}
               </span>
             </div>
           </div>
-          <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
-            <EllipsisVerticalIcon />
-          </button>
+          {isTeacher && (
+            <button className="options-btn" ref={optionsBtnRef} onClick={() => setShowOptions(!showOptions)}>
+              <EllipsisVerticalIcon />
+            </button>
+          )}
         </div>
         <div className="post-content">{post.content}</div>
       </StyledPostListItem>

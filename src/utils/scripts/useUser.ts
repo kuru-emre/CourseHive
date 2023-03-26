@@ -1,5 +1,4 @@
 import { toast } from 'react-hot-toast'
-import { v4 as uuid } from 'uuid'
 import { setUser, useAppDispatch } from '../../redux'
 import { UserType } from '../../types'
 
@@ -9,7 +8,7 @@ export const useUser = () => {
   // Fetch user info and rehydrate state
   const refresh = async () => {}
 
-  const register = async (name: string, email: string, type: UserType['type'], password: string) => {
+  const register = async (name: string, email: string, password: string) => {
     try {
       // Check if the email exists.
 
@@ -26,10 +25,9 @@ export const useUser = () => {
       // returned user object.
 
       const user: UserType = {
-        _id: uuid(),
-        name,
-        email,
-        type
+        _id: '642080f6904b3381618171a3',
+        name: 'Test Account',
+        email: 'test@gmail.com'
       }
 
       dispatch(setUser(user))
@@ -53,10 +51,9 @@ export const useUser = () => {
       // the backend's returned user object
 
       const user: UserType = {
-        _id: uuid(),
-        name: 'Test User',
-        email,
-        type: 'student'
+        _id: '642080f6904b3381618171a3',
+        name: 'Test Account',
+        email: 'test@gmail.com'
       }
 
       dispatch(setUser(user))

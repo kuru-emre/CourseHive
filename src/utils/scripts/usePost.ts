@@ -2,9 +2,11 @@ import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
 import { addCoursePost, removeCoursePost, useAppDispatch, useAppSelector } from '../../redux'
 import { PostType } from '../../types'
+import { useMailman } from '.'
 
 export const usePost = () => {
   const dispatch = useAppDispatch()
+  const { mailman } = useMailman()
   const { course } = useAppSelector(state => state.course)
   const { user } = useAppSelector(state => state.user)
 
@@ -17,8 +19,7 @@ export const usePost = () => {
 
       // Then, query the backend to
       // delete the post document.
-
-      // TODO: QUERY BACKEND
+      await mailman('posts', _id, 'DELETE')
     } catch (err) {
       console.error(err)
     }
@@ -27,22 +28,20 @@ export const usePost = () => {
   const createPost = async (content: string, type: PostType['type'], dueAt?: string) => {
     try {
       // First, create the post document
-
-      // TODO: QUERY BACKEND
-
-      // For now, fake the result:
-      const result = {
-        _id: uuid(),
+      const { post } = await mailman('posts', '', 'POST', {
         content,
         type,
         dueAt,
-        course: course?._id!,
-        user: user?._id!,
-        createdAt: DateTime.now().toISO()
-      }
+        course: course?._id
+      })
 
       // Then, add the post to the store.
-      dispatch(addCoursePost(result))
+      dispatch(
+        addCoursePost({
+          ...post,
+          user
+        })
+      )
     } catch (err) {
       console.error(err)
     }

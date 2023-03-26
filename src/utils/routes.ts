@@ -3,8 +3,9 @@ const App = {
   register: '/register',
   home: '/',
   settings: '/settings',
-  course: '/courses/:id',
-  profile: '/profile'
+  course: '/courses/:_id',
+  profile: '/profile',
+  courseById: (_id: string) => `/courses/${_id}`
 }
 
 export const ROUTES = {

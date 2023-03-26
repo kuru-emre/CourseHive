@@ -1,10 +1,11 @@
 import { useHistory } from 'react-router-dom'
 import { removeCourse, updateCourse, updateCourses, useAppDispatch } from '../../redux'
-import { ROUTES } from '..'
+import { ROUTES, useMailman } from '..'
 
 export const useCourse = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
+  const { mailman } = useMailman()
 
   const renameCourse = async (_id: string, title: string) => {
     try {
@@ -27,7 +28,9 @@ export const useCourse = () => {
       // Then, query the backend to
       // update the course document.
 
-      // TODO: QUERY BACKEND
+      await mailman('courses', _id, 'POST', {
+        title
+      })
     } catch (err) {
       console.error(err)
     }
@@ -79,7 +82,9 @@ export const useCourse = () => {
       // Then, query the backend to
       // update the course document.
 
-      // TODO: QUERY BACKEND
+      await mailman('courses', _id, 'POST', {
+        theme: THEMES[nextTheme]
+      })
     } catch (err) {
       console.error(err)
     }

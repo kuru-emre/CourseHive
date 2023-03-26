@@ -3,6 +3,7 @@ import { createRef, FC, FormEvent, useState } from 'react'
 import { ChevronDownIcon, ClockIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import { CourseType, PostType } from '../../types'
 import { usePost } from '../../utils'
+import { useAppSelector } from '../../redux'
 import { Avatar, OptionsPopover } from '..'
 import { StyledShareInput } from '.'
 
@@ -14,6 +15,7 @@ const ShareInput: FC<Props> = ({ course }) => {
   const inputRef = createRef<HTMLTextAreaElement>()
   const optionsBtnRef = createRef<HTMLButtonElement>()
   const { createPost } = usePost()
+  const { user } = useAppSelector(state => state.user)
   const [value, setValue] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [type, setType] = useState<PostType['type']>('post')
@@ -41,7 +43,7 @@ const ShareInput: FC<Props> = ({ course }) => {
     <>
       <form onSubmit={e => handleSubmit(e)}>
         <StyledShareInput htmlFor="share-input" color={course?.theme}>
-          <Avatar />
+          <Avatar name={user?.name} color={course.theme} />
           <TextareaAutosize
             id="share-input"
             required
