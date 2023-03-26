@@ -49,9 +49,16 @@ const StyledCourseCard = styled.div<StyledProps>`
       top: 12px;
       right: 12px;
       background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       svg {
         height: 22px;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
       }
     }
   }
