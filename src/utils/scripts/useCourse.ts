@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom'
-import { removeCourse, updateCourse, updateCourses, useAppDispatch } from '../../redux'
+import { removeCourse, updateCourse, updateCourses, addCourse, useAppDispatch } from '../../redux'
 import { ROUTES, useMailman } from '..'
+import { CourseType } from '../../types'
 
 export const useCourse = () => {
   const dispatch = useAppDispatch()
@@ -36,6 +37,60 @@ export const useCourse = () => {
     }
   }
 
+  const createCourse = async (courseName: string) => {
+    try {
+      const { createdCourse } = await mailman('courses', '', 'POST', {
+        title: courseName
+      })
+
+      // Update the store with the new course
+      dispatch(addCourse(createdCourse))
+
+      // Finally, redirect the user to the newly created course
+      history.push(ROUTES.App.courseById(createdCourse._id))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const joinCourse = async (courseCode: string) => {
+    try {
+      const { updatedCourse } = await mailman('courses', `join/${courseCode}`, 'POST')
+
+      // Add joined course to the store
+      dispatch(
+        updateCourses({
+          _id: updatedCourse._id,
+          course: updatedCourse
+        })
+      )
+
+      // Finally, redirect the user to the joined course
+      history.push(ROUTES.App.courseById(updatedCourse._id))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const leaveCourse = async (_id: string) => {
+    try {
+      // First, remove from store.
+      // This conveys a faster speed than reality.
+
+      dispatch(removeCourse(_id))
+
+      // Then, query the backend to
+      // remove the student from the course.
+
+      await mailman('courses', `leave/${_id}`, 'POST')
+
+      // Finally, redirect the user to the Courses page.
+      history.push(ROUTES.App.home)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   const deleteCourse = async (_id: string) => {
     try {
       // First, remove from store.
@@ -46,7 +101,7 @@ export const useCourse = () => {
       // Then, query the backend to
       // delete the course document.
 
-      // TODO: QUERY BACKEND
+      await mailman('courses', _id, 'DELETE')
 
       // Finally, redirect the user to the Courses page.
       history.push(ROUTES.App.home)
@@ -92,6 +147,9 @@ export const useCourse = () => {
 
   return {
     renameCourse,
+    createCourse,
+    joinCourse,
+    leaveCourse,
     deleteCourse,
     toggleCourseTheme
   }

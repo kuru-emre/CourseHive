@@ -1,4 +1,4 @@
-import { UserType } from '.'
+import { PostType, UserType } from './'
 
 export type CourseType = {
   _id: string
@@ -7,4 +7,6 @@ export type CourseType = {
   students: UserType[]
   teachers: UserType[]
   theme: string
+  assignments?: PostType[]
+  createdAt: Date
 }
