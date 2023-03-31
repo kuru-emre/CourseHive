@@ -1,7 +1,7 @@
-import { ObjectId, Schema, model } from 'mongoose'
+import mongoose, { ObjectId, Schema, model } from 'mongoose'
 
 export type UserType = {
-  _id: ObjectId
+  _id: mongoose.Types.ObjectId
   name: string
   email: string
   password: string
