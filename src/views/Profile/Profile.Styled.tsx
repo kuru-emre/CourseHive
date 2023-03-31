@@ -1,3 +1,5 @@
+// WRITTEN BY: Dishant Behera (B00843009, ds418021@dal.ca)
+
 import styled from "styled-components";
 
 const StyledProfile = styled.div`
