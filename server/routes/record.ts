@@ -1,5 +1,5 @@
 // SOURCE: https://www.mongodb.com/languages/mern-stack-tutorial
-// WRITTEN BY: Dishant Behera (B00843009, ds418021@dal.ca)
+// WRITTEN BY: Dishant Behera & Dhruvil Trivedi (B00843009, ds418021@dal.ca) (B00839059, dh461268@dal.ca)
 
 const express = require("express");
 const userRoutes = express.Router();
@@ -61,7 +61,42 @@ const ObjectId = require("mongodb").ObjectId;
         response.json(obj);
       }
     });
+ });
+
+ //This will check if the user already exists then don't add to Db otherwise add it
+ userRoutes.route("/registration").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myobj = {
+    name: req.body.name,
+    email: req.body.email,
+    eduName: req.body.eduName,
+    password: req.body.password,
+  };
+
+  db_connect.collection("users").findOne({email: req.body.email}).then((savedUser)=>{
+    if(savedUser){
+        return response.status(422).json({error:"user already exist."});
+    }else{
+      db_connect.collection("users").insertOne(myobj, function (err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+    }
   });
+});
+
+// This will help in login
+ userRoutes.route("/login/:email").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  db_connect.collection("users").findOne({email: req.param}).then((savedUser)=>{
+    if(savedUser){
+        return response.status(200);
+    }else{
+      return response.status(422).json({error:"user doesn't exists."});
+    }
+  })
+});
 
 
+ 
 module.exports = userRoutes;

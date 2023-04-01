@@ -5,8 +5,10 @@ import { FC, useEffect, useState } from 'react'
 import { validator } from '../../utils/validator'
 import { StyledRegister } from '.'
 import { Link, useHistory } from 'react-router-dom'
-import { ROUTES, useUser } from '../../utils'
+import { useUser } from '../../utils'
+import { ROUTES } from '../../utils'
 import { useAppSelector } from '../../redux'
+import { v1 as uuidv1 } from 'uuid'
 
 export const Register: FC = () => {
   const history = useHistory()
@@ -30,8 +32,9 @@ export const Register: FC = () => {
     e.preventDefault()
     setErrors(validator.registerValidation(email, password, name, eduName))
 
-    // EXAMPLE FOR REGISTERING:
-    await register(name, email, password)
+    const _id = uuidv1()
+
+    register(_id, name, email, eduName, password) 
   }
 
   useEffect(() => {
@@ -48,9 +51,11 @@ export const Register: FC = () => {
   // redirect the user to the home page.
   useEffect(() => {
     if (!user) {
+      console.log("In here")
       return
     }
-
+    
+    console.log("In here 2")
     history.push(ROUTES.App.home)
   }, [user])
 
