@@ -10,7 +10,7 @@ export const useMailman2 = () => {
     body?: Object
   ) => {
     try {
-      const response = await fetch(`http://localhost:5000/${route}`, {
+      const response = await fetch(`http://localhost:8000/${route}`, {
         method,
         headers: {
           'Content-Type': 'application/json',

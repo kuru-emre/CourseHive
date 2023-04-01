@@ -32,7 +32,7 @@ export const useUser = () => {
       }
 
       dispatch(setUser(user))
-      await fetch(`http://localhost:5000/login/${email}`);
+      await fetch(`http://localhost:8000/login/${email}`);
     } catch (err) {
       console.error(err)
       toast.error((err as any)?.message)
