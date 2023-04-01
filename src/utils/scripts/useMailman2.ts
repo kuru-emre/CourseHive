@@ -1,3 +1,5 @@
+// Reference: Most of the code is similar to ../useMailMan.ts file, author: Jamel
+
 import { toast } from 'react-hot-toast'
 import { useAppSelector } from '../../redux'
 

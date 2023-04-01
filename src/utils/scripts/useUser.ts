@@ -1,3 +1,5 @@
+// Author: Dhruvil Trivedi
+
 import { toast } from 'react-hot-toast'
 import { setUser, useAppDispatch } from '../../redux'
 import { UserType } from '../../types'
