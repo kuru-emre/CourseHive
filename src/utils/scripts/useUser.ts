@@ -1,36 +1,20 @@
 import { toast } from 'react-hot-toast'
 import { setUser, useAppDispatch } from '../../redux'
 import { UserType } from '../../types'
+import { useMailman2 } from './useMailman2'
 
 export const useUser = () => {
   const dispatch = useAppDispatch()
+  const { mailman2 } = useMailman2()
 
   // Fetch user info and rehydrate state
   const refresh = async () => {}
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (_id: string, name: string, email: string, eduName: string, password: string) => {
     try {
-      // Check if the email exists.
-
-      // If the email already exists, throw an error.
-
-      // throw new Error('Email already exists')
-
-      // If the email does not already exist,
-      // query the backend to create the user.
-
-      // TODO: QUERY BACKEND
-
-      // Set the state to the backend's
-      // returned user object.
-
-      const user: UserType = {
-        _id: '642080f6904b3381618171a3',
-        name: 'Test Account',
-        email: 'test@gmail.com'
-      }
-
-      dispatch(setUser(user))
+      const data = {_id,name,email,eduName,password}
+      dispatch(setUser(data))
+      await mailman2('registration','POST',data)
     } catch (err) {
       console.error(err)
       toast.error((err as any)?.message)
@@ -39,24 +23,16 @@ export const useUser = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      // Check if the user exists.
-
-      // TODO: QUERY BACKEND
-
-      // If the user doesn't exist, throw an error.
-
-      // throw new Error('User not found')
-
-      // If the user exists, set the state to
-      // the backend's returned user object
-
       const user: UserType = {
-        _id: '642080f6904b3381618171a3',
+        _id: '12234',
         name: 'Test Account',
-        email: 'test@gmail.com'
+        email: 'test@gmail.com',
+        password: '123445',
+        eduName: 'dal'
       }
 
       dispatch(setUser(user))
+      await fetch(`http://localhost:5000/login/${email}`);
     } catch (err) {
       console.error(err)
       toast.error((err as any)?.message)

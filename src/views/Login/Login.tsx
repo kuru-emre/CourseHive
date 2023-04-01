@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { validator } from '../../utils/validator'
 import { StyledLogin } from '.'
-import { Link, useHistory } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import { ROUTES, useUser } from '../../utils'
 import { useAppSelector } from '../../redux'
 
@@ -11,6 +11,8 @@ const Login: FC = () => {
   const { login } = useUser()
   const { user } = useAppSelector(state => state.user)
 
+  const params = useParams()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({ email: '', password: '' })
@@ -19,8 +21,8 @@ const Login: FC = () => {
     e.preventDefault()
     setErrors(validator.loginValidation(email, password))
 
-    // EXAMPLE FOR LOGGING IN:
-    await login(email, password)
+    login(email,password);
+
   }
 
   useEffect(() => {
