@@ -72,7 +72,6 @@ const Login: FC = () => {
 
           <button type="submit">Log In</button>
         </form>
-        <button className="link-btn">Forget Password?</button>
         <Link to="register">
           <button className="link-btn">Don't have an account? Register here.</button>
         </Link>
