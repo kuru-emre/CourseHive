@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "env": {
+    "DB_CONN_STRING": "mongodb+srv://admin:OjOmlWtXRXhxWads@group21cluster.mg5ptnl.mongodb.net/?retryWrites=true&w=majority"
+  },
+  "builds": [
+    {
+      "src": "built/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "built/server.js"
+    }
+  ]
+}

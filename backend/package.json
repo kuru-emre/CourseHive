@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && env node built/server.js",
+    "start": "env node built/server.js",
     "build": "tsc",
     "watch": "env yarn nodemon ./server.ts",
     "env": "dotenv -e .env"

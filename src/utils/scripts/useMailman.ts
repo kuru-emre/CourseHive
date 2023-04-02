@@ -11,7 +11,9 @@ export const useMailman = () => {
     body?: Object
   ) => {
     try {
-      const response = await fetch(`http://localhost:52635/${route}/${endpoint}`, {
+      const serverURL = import.meta.env.VITE_SERVER_URL
+
+      const response = await fetch(`${serverURL}${route}/${endpoint}`, {
         method,
         credentials: 'include',
         headers: {
