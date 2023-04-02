@@ -1,1 +1,0 @@
-# Coursehive Frontend
