@@ -1,0 +1,30 @@
+{
+  "name": "coursehive-be",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "tsc && env node built/server.js",
+    "build": "tsc",
+    "watch": "env yarn nodemon ./server.ts",
+    "env": "dotenv -e .env"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "nanoid": "^3.3.6",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/node": "^12.0.0",
+    "dotenv-cli": "^5.1.0",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
+  }
+}
