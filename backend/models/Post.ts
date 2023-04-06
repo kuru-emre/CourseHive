@@ -17,7 +17,7 @@ export const PostSchema = new Schema<PostType>(
     user: { type: Types.ObjectId, required: true },
     dueAt: String
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 )
 
 export const Post = model<PostType>('Post', PostSchema)

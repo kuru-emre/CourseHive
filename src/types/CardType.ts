@@ -1,6 +1,10 @@
+import { UserType } from "./UserType"
+
 export type CardType = {
-  name: string;
-  img: string;
-  desc: string;
-  content: string;
-};
+  _id: string
+  mode: string
+  title: string
+  img: string
+  desc: string
+  students: UserType[]
+}

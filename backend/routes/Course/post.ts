@@ -39,8 +39,11 @@ route.post('/', async (req: Request, res: Response) => {
 
   const courseCode = await generateCourseCode()
 
+  const courseIMG = "https://picsum.photos/200"
+
   const newCourse = {
     title,
+    img: courseIMG,
     code: courseCode,
     students: [],
     teachers: [user._id], // User should be a teacher if they are creating the course

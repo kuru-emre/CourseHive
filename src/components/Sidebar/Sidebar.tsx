@@ -1,18 +1,29 @@
-import { FC } from "react";
-import { StyledSidebar } from ".";
+import { FC, useEffect } from 'react'
+import { StyledSidebar } from '.'
+import { useAppSelector } from '../../redux'
+import { useSettings } from '../../utils'
 
 const Sidebar: FC = () => {
+  const { courses } = useAppSelector((state) => state.courses)
+  const { getCourses } = useSettings()
+
+  useEffect(() => {
+    getCourses()
+  }, [])
+
   return (
     <StyledSidebar>
       <div className="sidebar">
-        <a>Biology 1001</a>
-        <a>Math 1001</a>
-        <a>Physics 1001</a>
-        <a>Arts 1001</a>
-      
+        <h2 className="title">My Courses</h2>
+        <hr style={{ width: '100%' }} />
+        {[...courses].map((course) => (
+          <a key={course._id} style={{ backgroundColor: course.theme, color: 'white' }}>
+            {course.title}
+          </a>
+        ))}
       </div>
     </StyledSidebar>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

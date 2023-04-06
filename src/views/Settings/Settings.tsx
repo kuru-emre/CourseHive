@@ -1,63 +1,74 @@
-import { FC, SetStateAction, useState } from "react";
-import { Card, Sidebar } from "../../components";
-import picture from "../../assets/images/biology.jpg";
-import { StyledSettings } from ".";
-import {
-  ArrowLeftCircleIcon,
-  ArrowRightCircleIcon,
-} from "@heroicons/react/24/outline";
-import { theme } from "../../utils";
+import { FC, useEffect, useState } from 'react'
+import { Card, Sidebar } from '../../components'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectCards } from 'swiper'
+import { useAppSelector } from '../../redux'
+import { useSettings } from '../../utils'
+import { StyledSettings } from '.'
+import Switch from 'react-switch'
+import 'swiper/css'
+import 'swiper/css/effect-cards'
 
 const Settings: FC = () => {
-  const [open, setOpen] = useState(false);
-  const [textValue, setValue] = useState("");
-  const [name, setName] = useState("BIO-1001");
+  const [toggle, setToggle] = useState({ state: false, class: '', editable: false })
+  const { courses } = useAppSelector((state) => state.courses)
+  const { getCourses } = useSettings()
 
-  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
-    setValue(e.target.value);
-  };
+  const handleToggle = () => {
+    setToggle((prevState) => ({
+      ...prevState,
+      state: !toggle.state,
+      class: toggle.class == '' ? 'active' : '',
+      editable: !toggle.editable
+    }))
+  }
 
-  const handleClick = () => {
-    setName(textValue);
-    setOpen(true);
-    setValue("");
-  };
+  useEffect(() => {
+    getCourses()
+  }, [])
 
   return (
     <StyledSettings>
       <div className="container">
         <Sidebar />
-        <div className="content">
-          <ArrowLeftCircleIcon
-            style={{
-              width: "75px",
-              height: "75px",
-              color: theme.color.purple[500],
+        <div className="courses">
+          <h1>Enable Editing</h1>
+          <h3>Swipe the cards to select the course</h3>
+          <hr style={{width: '75%'}}/>
+          <Switch onChange={() => handleToggle()} checked={toggle.state} />
+          <Swiper
+            effect={'cards'}
+            grabCursor={true}
+            modules={[EffectCards]}
+            className="mySwiper"
+            breakpoints={{
+              640: {
+                width: 400,
+                height: 650
+              },
+              768: {
+                width: 500,
+                height: 650
+              }
             }}
-          />
-          <Card
-            name={name}
-            img={picture}
-            desc="Biology Basics"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis arcu nec felis dictum aliquet. Ut sollicitudin eu ipsum eget tincidunt. Aenean dignissim fringilla euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus sed urna dictum nibh egestas faucibus."
-          />
-          <ArrowRightCircleIcon
-            style={{
-              width: "75px",
-              height: "75px",
-              color: theme.color.purple[500],
-            }}
-          />
+          >
+            {[...courses].map((course) => (
+              <SwiperSlide key={course._id} className={toggle.class} style={{ background: course.theme }}>
+                <Card
+                  _id={course._id}
+                  mode={toggle.class}
+                  title={course.title}
+                  img={course.img}
+                  desc={course.desc}
+                  students={course.students}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
-      <hr />
-      <div className="action">
-        <h3>Change class name</h3>
-        <input type="text" name="name" onChange={handleChange}></input>
-        <button onClick={() => handleClick()}>Change</button>
-      </div>
     </StyledSettings>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

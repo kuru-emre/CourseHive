@@ -5,7 +5,7 @@ export const useMailman = () => {
   const { user } = useAppSelector(state => state.user)
 
   const mailman = async (
-    route: 'courses' | 'users' | 'posts',
+    route: 'courses' | 'users' | 'posts' | 'settings',
     endpoint: string,
     method: 'POST' | 'GET' | 'DELETE' | 'PUT' = 'GET',
     body?: Object

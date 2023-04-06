@@ -31,7 +31,8 @@ export const UserSchema = new Schema<UserType>(
     preferences: UserPreferencesSchema,
     password: { type: String, required: true }
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false },
+  
 )
 
 export const User = model<UserType>('User', UserSchema)

@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import express from 'express'
 import dotenv from 'dotenv'
 import { connectToMongo } from './utils'
-import { CourseRoute, PostRoute, UserRoute } from './routes'
+import { CourseRoute, PostRoute, UserRoute, SettingsRoute } from './routes'
 import { User, UserType } from './models'
 
 declare global {
@@ -54,6 +54,7 @@ const App = async () => {
     app.use('/courses', CourseRoute)
     app.use('/users', UserRoute)
     app.use('/posts', PostRoute)
+    app.use('/settings', SettingsRoute)
 
     app.listen(PORT, () => {
       return console.log(`Server is listening on ${PORT}`)

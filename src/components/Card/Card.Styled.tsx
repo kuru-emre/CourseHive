@@ -1,43 +1,59 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const StyledCard = styled.div`
   .card {
-    width: 500px;
-    height: 500px;
     display: flex;
+    min-height: auto;
     flex-direction: column;
-    gap: 20px;
-    padding: 2px;
+    gap: 10px;
+    padding: 20px;
     align-items: center;
     border-radius: 10px;
-    background-color: ${({ theme }) => theme.color.purple[50]};
-    border: 4px solid ${({ theme }) => theme.color.purple[100]};
-
-    h3,
-    h5 {
-      width: 100%;
-      text-align: center;
-      color: ${({ theme }) => theme.color.purple[700]};
-    }
 
     img {
-      width: 250px;
-      height: 250px;
+      padding: 5px;
+      border: 1px solid black;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       text-align: center;
-      margin-bottom: 20px;
     }
 
-    .card-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+    .submit-btn {
+      background: black;
+      color: white;
+      display: none;
     }
 
-    p {
+    .active-btn {
+      display: block;
+    }
+
+    .active-text {
+      border: 1px dashed black;
+    }
+
+    .text {
+      border-radius: 18px;
+      width: 100%;
       text-align: center;
+      background: transparent;
+      color: white;
+      resize: none;
+      overflow: hidden;
+      margin: auto;
+    }
+
+    .red {
+      background: red;
+    }
+
+    .actions {
+      display: flex;
+
     }
   }
-`;
+`
 
-export default StyledCard;
+export default StyledCard

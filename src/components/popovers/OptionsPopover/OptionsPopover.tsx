@@ -2,6 +2,7 @@ import { FC, ReactNode, RefObject } from 'react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import { Popover } from '../..'
 import { StyledOptionsPopover } from '.'
+import React from 'react'
 
 type Props = {
   position?: 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'top-right'
@@ -51,7 +52,7 @@ const OptionsPopover: FC<Props> = ({
         <div className="menu-group">
           {options.map((option, index) => {
             return (
-              <>
+              <React.Fragment key={option.label}>
                 {labelsBefore?.find(l => l.before === option.label) && (
                   <span className="options-label" key={`${index}-label`}>
                     {labelsBefore?.find(l => l.before === option.label)?.label}
@@ -68,7 +69,7 @@ const OptionsPopover: FC<Props> = ({
                   {option.isSelected && <CheckIcon className="selected-icon" />}
                 </button>
                 {divsAfter?.includes(option.label) && <hr key={`${index}-divider`} />}
-              </>
+              </React.Fragment>
             )
           })}
         </div>
