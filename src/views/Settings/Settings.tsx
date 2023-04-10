@@ -11,11 +11,11 @@ import 'swiper/css/effect-cards'
 
 const Settings: FC = () => {
   const [toggle, setToggle] = useState({ state: false, class: '', editable: false })
-  const { courses } = useAppSelector((state) => state.courses)
+  const { courses } = useAppSelector(state => state.courses)
   const { getCourses } = useSettings()
 
   const handleToggle = () => {
-    setToggle((prevState) => ({
+    setToggle(prevState => ({
       ...prevState,
       state: !toggle.state,
       class: toggle.class == '' ? 'active' : '',
@@ -34,7 +34,7 @@ const Settings: FC = () => {
         <div className="courses">
           <h1>Enable Editing</h1>
           <h3>Swipe the cards to select the course</h3>
-          <hr style={{width: '75%'}}/>
+          <hr style={{ width: '75%' }} />
           <Switch onChange={() => handleToggle()} checked={toggle.state} />
           <Swiper
             effect={'cards'}
@@ -52,14 +52,14 @@ const Settings: FC = () => {
               }
             }}
           >
-            {[...courses].map((course) => (
+            {[...courses].map(course => (
               <SwiperSlide key={course._id} className={toggle.class} style={{ background: course.theme }}>
                 <Card
                   _id={course._id}
                   mode={toggle.class}
                   title={course.title}
-                  img={course.img}
-                  desc={course.desc}
+                  // img={course.img}
+                  // desc={course.desc}
                   students={course.students}
                 />
               </SwiperSlide>
