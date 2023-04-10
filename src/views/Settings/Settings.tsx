@@ -58,8 +58,8 @@ const Settings: FC = () => {
                   _id={course._id}
                   mode={toggle.class}
                   title={course.title}
-                  // img={course.img}
-                  // desc={course.desc}
+                  img={course.img}
+                  desc={course.desc}
                   students={course.students}
                 />
               </SwiperSlide>

@@ -4,23 +4,17 @@ import { StyledCard } from '.'
 import { useSettings } from '../../utils'
 import toast from 'react-hot-toast'
 
-const Card: FC<CardType> = ({
-  _id,
-  mode,
-  title,
-  // img, desc,
-  students
-}) => {
+const Card: FC<CardType> = ({ _id, mode, title, img, desc, students }) => {
   const { updateCourse, deleteCourse } = useSettings()
   const [course, setCourse] = useState({
     title: title,
-    // img: img,
-    // desc: desc,
+    img: img,
+    desc: desc,
     students: students
   })
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCourse(prevState => ({
+    setCourse((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value
     }))
@@ -47,7 +41,7 @@ const Card: FC<CardType> = ({
   return (
     <StyledCard>
       <div className="card">
-        {/* <img src={course.img} alt="classIMG" /> */}
+        {<img src={course.img} alt="classIMG" />}
         <p>
           <label htmlFor="title">Course Title:</label>
         </p>
@@ -62,13 +56,15 @@ const Card: FC<CardType> = ({
         <p>
           <label htmlFor="desc">Course Description:</label>
         </p>
-        {/* <textarea
-          name="desc"
-          className={`text ${mode}-text`}
-          value={course.desc}
-          onChange={handleChange}
-          disabled={mode == '' ? true : false}
-        /> */}
+        {
+          <textarea
+            name="desc"
+            className={`text ${mode}-text`}
+            value={course.desc}
+            onChange={handleChange}
+            disabled={mode == '' ? true : false}
+          />
+        }
         <hr style={{ width: '100%' }} />
         {course.students.length == 0 ? (
           <span>No students are enrolled in this course</span>
