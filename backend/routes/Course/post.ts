@@ -39,11 +39,18 @@ route.post('/', async (req: Request, res: Response) => {
 
   const courseCode = await generateCourseCode()
 
-  const courseIMG = "https://picsum.photos/200"
+  const COURSE_IMG = [
+    'https://cdn.pixabay.com/photo/2012/07/06/15/48/arches-national-park-51612_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2013/02/11/15/29/fort-jefferson-80555_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2013/11/11/15/06/horses-208827_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2017/02/22/17/15/beach-2090017_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2014/02/28/19/42/crater-lake-277123_960_720.jpg'
+  ]
 
   const newCourse = {
     title,
-    img: courseIMG,
+    img: COURSE_IMG[Math.floor(Math.random() * COURSE_IMG.length)],
+    desc: 'None',
     code: courseCode,
     students: [],
     teachers: [user._id], // User should be a teacher if they are creating the course
